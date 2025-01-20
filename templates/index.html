@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animal Classification</title>
+</head>
+<body>
+    <h1>Animal Classification and Insights</h1>
+    <form action="/predict" method="post" enctype="multipart/form-data">
+        <label for="image">Upload an image of an animal:</label>
+        <input type="file" name="image" id="image" accept="image/*" required>
+        <button type="submit">Predict</button>
+    </form>
+    <div id="results"></div>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            margin: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        .section {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .left, .right {
+            width: 48%;
+            padding: 20px;
+        }
+        img {
+            width: 100%;  /* Make image take full width available */
+            max-width: 700px;  /* Set a larger maximum width */
+            height: auto;
+            border: 2px solid #ccc;
+            margin: 20px 0;  /* Add margin to separate image */
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        h2 {
+            text-align: center;
+        }
+        .population-chart {
+            text-align: center;
+            width: 100%;
+            max-width: 900px;  /* Adjust the maximum width */
+            margin: 0 auto;
+        }
+        .container-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        .table-container {
+            width: 60%;
+            overflow-x: auto;
+        }
+        .image-container {
+            width: 35%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- First Section: Predicted Image on Right, Details Table on Left -->
+        <div class="section">
+            <!-- Left side: Animal Details Table -->
+            <div class="left table-container">
+                <h2>Animal Details</h2>
+                <table>
+                    <tbody>
+                        {% for key, value in details.items() %}
+                        <tr>
+                            <th>{{ key }}</th>
+                            <td>{{ value }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <p><strong>Confidence:</strong> {{ confidence }}</p>
+            </div>
+
+            <!-- Right side: Predicted Animal Image -->
+            <div class="right image-container">
+                <h2>Predicted Animal Image</h2>
+                <img src="{{ image_url }}" alt="Animal Image">
+            </div>
+        </div>
+
+ <!-- Second Section: Population Trend Chart on Left, Population Table on Right -->
+<div class="section">
+    <!-- Check if population trend data is available -->
+    {% if show_population_trend %}
+        <!-- Left side: Population Trend Chart -->
+        <div class="left">
+            <h2>Population Trend for {{ details['Animal Name'] }}</h2>
+            <div class="population-chart">
+                <img src="data:image/png;base64,{{ img_base64 }}" alt="Population Trend Chart" />
+            </div>
+        </div>
+
+        <!-- Right side: Population Trend Table -->
+        <div class="right table-container">
+            <h3>Population Trend by Year</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Population</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for year, population in population_data %}
+                        <tr>
+                            <td>{{ year }}</td>
+                            <td>{{ population }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+      <p>No population trend data is available for this animal.</p>
+    {% endif %}
+</div>
